@@ -21,9 +21,11 @@ let play,
   Fg,
   t = 0,
   tick = 1 / 30,
-  time
+  time,
+  mover
 
 function setup() {
+  mover = new Mover()
   Fg = createVector(0, -(9.81 * (tick * tick)))
   play = document.getElementById('play')
   pause = document.getElementById('pause')
@@ -126,9 +128,10 @@ function draw() {
     if (h <= 0) noLoop()
   }
   const diameter = (step / 1000) * objSize.value
-  circle(d * step, preview.height - h * step, diameter)
+  // circle(d * step, preview.height - h * step, diameter)
   ch.innerHTML = h.toFixed(2)
   cd.innerHTML = d.toFixed(2)
   cv.innerHTML = (v.mag() * 30).toFixed(2)
   time.innerHTML = t.toFixed(2)
+  mover.draw()
 }
