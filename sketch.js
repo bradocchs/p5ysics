@@ -22,10 +22,10 @@ let play,
   t = 0,
   tick = 1 / 30,
   time,
-  mover
+  sphere
 
 function setup() {
-  mover = new Mover()
+  sphere = new Sphere()
   Fg = createVector(0, -(9.81 * (tick * tick)))
   play = document.getElementById('play')
   pause = document.getElementById('pause')
@@ -133,5 +133,5 @@ function draw() {
   cd.innerHTML = d.toFixed(2)
   cv.innerHTML = (v.mag() * 30).toFixed(2)
   time.innerHTML = t.toFixed(2)
-  mover.draw()
+  sphere.draw(step)
 }
