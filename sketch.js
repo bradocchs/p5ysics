@@ -26,7 +26,8 @@ let play,
 
 function setup() {
   sphere = new Sphere()
-  Fg = createVector(0, -(9.81 * (tick * tick)))
+  // Fg = createVector(0, -(9.81 * (tick * tick)))
+  Fg = createVector(0, -9.81)
   play = document.getElementById('play')
   pause = document.getElementById('pause')
   reset = document.getElementById('reset')
@@ -121,17 +122,19 @@ function draw() {
   fill(255)
   if (isLooping()) {
     t += tick
-    v.add(Fg)
+    // v.add(Fg)
     // if (v.mag() <= a.mag()) v.setMag(0)
-    if (v.x !== 0) d += v.x
-    if (v.y !== 0) h += v.y
-    if (h <= 0) noLoop()
+    // if (v.x !== 0) d += v.x
+    // if (v.y !== 0) h += v.y
+    // if (h <= 0) noLoop()
+    sphere.addForce(Fg)
+    sphere.update(tick)
   }
+  sphere.draw(preview.height, step)
   const diameter = (step / 1000) * objSize.value
   // circle(d * step, preview.height - h * step, diameter)
   ch.innerHTML = h.toFixed(2)
   cd.innerHTML = d.toFixed(2)
   cv.innerHTML = (v.mag() * 30).toFixed(2)
   time.innerHTML = t.toFixed(2)
-  sphere.draw(step)
 }
