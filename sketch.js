@@ -1,5 +1,4 @@
-let play,
-  pause,
+let playpause,
   reset,
   preview,
   scale,
@@ -11,10 +10,6 @@ let play,
   objVdeg,
   objA,
   objAdeg,
-  h,
-  d,
-  v,
-  a,
   ch,
   cd,
   cv,
@@ -28,16 +23,16 @@ let play,
 function setup() {
   sphere = new Sphere()
   Fg = createVector(0, -(9.81 * (tick * tick)))
-  cf = 0.05 * tick
-  play = document.getElementById('play')
-  pause = document.getElementById('pause')
+  cf = 0.47 * tick
+  playpause = document.getElementById('playpause')
   reset = document.getElementById('reset')
   time = document.getElementById('time')
-  play.addEventListener('click', () => {
-    loop()
-  })
-  pause.addEventListener('click', () => {
-    noLoop()
+  playpause.addEventListener('click', () => {
+    if (isLooping()) {
+      noLoop()
+    } else {
+      loop()
+    }
   })
   reset.addEventListener('click', () => {
     h = parseFloat(objH.value)
@@ -128,8 +123,12 @@ function draw() {
     // if (v.x !== 0) d += v.x
     // if (v.y !== 0) h += v.y
     // if (h <= 0) noLoop()
-    // sphere.addForce(Fg)
+    sphere.addForce(Fg, true)
+    const fluid = sphere.velocity.copy()
+    fluid.mult(-1).setMag(cf)
+    sphere.addForce(fluid)
     sphere.update()
+    sphere.checkEdges()
   }
   sphere.draw(preview.height, step)
   const diameter = (step / 1000) * objSize.value
