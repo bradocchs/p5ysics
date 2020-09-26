@@ -19,6 +19,7 @@ let play,
   cd,
   cv,
   Fg,
+  cf,
   t = 0,
   tick = 1 / 30,
   time,
@@ -26,8 +27,8 @@ let play,
 
 function setup() {
   sphere = new Sphere()
-  // Fg = createVector(0, -(9.81 * (tick * tick)))
-  Fg = createVector(0, -9.81)
+  Fg = createVector(0, -(9.81 * (tick * tick)))
+  cf = 0.05 * tick
   play = document.getElementById('play')
   pause = document.getElementById('pause')
   reset = document.getElementById('reset')
@@ -127,14 +128,14 @@ function draw() {
     // if (v.x !== 0) d += v.x
     // if (v.y !== 0) h += v.y
     // if (h <= 0) noLoop()
-    sphere.addForce(Fg)
-    sphere.update(tick)
+    // sphere.addForce(Fg)
+    sphere.update()
   }
   sphere.draw(preview.height, step)
   const diameter = (step / 1000) * objSize.value
   // circle(d * step, preview.height - h * step, diameter)
-  ch.innerHTML = h.toFixed(2)
-  cd.innerHTML = d.toFixed(2)
-  cv.innerHTML = (v.mag() * 30).toFixed(2)
+  // ch.innerHTML = h.toFixed(2)
+  // cd.innerHTML = d.toFixed(2)
+  // cv.innerHTML = (v.mag() * 30).toFixed(2)
   time.innerHTML = t.toFixed(2)
 }
